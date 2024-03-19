@@ -12,7 +12,7 @@ Environment variables are defined in .env file. It contains variables for DB. By
 H2 database. To use different database change variables to your needs. 
 
 ### Run application
-Run docker-compose using Docker: `docker-compose up`. This will build the application and run at port `8080`
+Run docker-compose using `docker-compose up`. This will build the application and run at port `8080`
 
 ### Build app
 - App is built using Maven. To build run: `mvn clean package`
