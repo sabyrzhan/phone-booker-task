@@ -25,8 +25,8 @@ To run tests: `mvn clean test`. App contains unit and functional tests.
 Overview of the components and REST API spec is in this [pdf](Doc.pdf) file.
 
 ### OpenAPI/Swagger docs
-Service provides OpenAPI docs you can access at http://localhost:8080/swagger-ui/index.html. You can use it make 
-requests to service in the UI.
+Service provides OpenAPI docs you can access at http://localhost:8080/swagger-ui/index.html. You can send 
+requests directly in the UI.
 
 ### UML class diagram
 ![Drag Racing](diagram.png)
