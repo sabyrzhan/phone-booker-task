@@ -1,0 +1,15 @@
+version: "3"
+services:
+  app:
+    image: phone-booker-test
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    env_file: '.env'
+    environment:
+      - DB_URL=${DB_URL}
+      - DB_CLASSNAME=${DB_CLASSNAME}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_PLATFORM=${DB_PLATFORM}

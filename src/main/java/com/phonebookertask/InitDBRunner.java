@@ -66,8 +66,8 @@ public class InitDBRunner implements CommandLineRunner {
                     phoneModelRepository.save(phoneModel);
                 }
             }
-
-            LOGGER.info("Upserting phone models finished!");
         }
+        LOGGER.info("Upserting phone models finished!");
     }
 }
+
