@@ -16,6 +16,8 @@ public class PhoneBookServiceImpl implements PhoneBookService {
     private final PhoneModelRepository phoneModelRepository;
     private final BookRepository bookRepository;
 
+    private static final Object BOOK_LOCK = new Object();
+
     public PhoneBookServiceImpl(PhoneModelRepository phoneModelRepository, BookRepository bookRepository) {
         this.phoneModelRepository = phoneModelRepository;
         this.bookRepository = bookRepository;
@@ -29,16 +31,18 @@ public class PhoneBookServiceImpl implements PhoneBookService {
             throw new PhoneNotFoundException();
         }
 
-        var bookedCount = bookRepository.countAllByPhoneModel(phoneModel.get());
-        if(bookedCount >= phoneModel.get().getCount()) {
-            throw new PhoneUnavailableException();
-        }
+        synchronized (BOOK_LOCK) {
+            var bookedCount = bookRepository.countAllByPhoneModel(phoneModel.get());
+            if(bookedCount >= phoneModel.get().getCount()) {
+                throw new PhoneUnavailableException();
+            }
 
-        var book = new Book();
-        book.setPhoneModel(phoneModel.get());
-        book.setBookDate(Instant.now());
-        book.setUsername(username);
-        bookRepository.save(book);
+            var book = new Book();
+            book.setPhoneModel(phoneModel.get());
+            book.setBookDate(Instant.now());
+            book.setUsername(username);
+            bookRepository.save(book);
+        }
     }
 
     @Override
