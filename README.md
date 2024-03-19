@@ -14,7 +14,7 @@ H2 database. To use different database change variables to your needs.
 ### Run application
 Run docker-compose using `docker-compose up`. This will build the application and run at port `8080`
 
-### Build app
+### Build app and container
 - App is built using Maven. To build run: `mvn clean package`
 - To build container: `docker-compose build`
 
