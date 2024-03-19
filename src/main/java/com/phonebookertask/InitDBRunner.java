@@ -4,6 +4,8 @@ import com.phonebookertask.model.PhoneMake;
 import com.phonebookertask.model.PhoneModel;
 import com.phonebookertask.repository.PhoneMakeRepository;
 import com.phonebookertask.repository.PhoneModelRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Component
 public class InitDBRunner implements CommandLineRunner {
+    private static final Logger LOGGER = LoggerFactory.getLogger(InitDBRunner.class);
 
     private final PhoneMakeRepository phoneMakeRepository;
     private final PhoneModelRepository phoneModelRepository;
@@ -27,6 +30,7 @@ public class InitDBRunner implements CommandLineRunner {
     }
 
     void upsertPhoneModels() {
+        LOGGER.info("Upserting phone models...");
         record Model(String name, int count) {}
         var phones = new HashMap<String, List<Model>>();
         phones.put("Samsung", List.of(
@@ -62,6 +66,8 @@ public class InitDBRunner implements CommandLineRunner {
                     phoneModelRepository.save(phoneModel);
                 }
             }
+
+            LOGGER.info("Upserting phone models finished!");
         }
     }
 }
