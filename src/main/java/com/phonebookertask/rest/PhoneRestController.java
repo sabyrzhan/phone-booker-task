@@ -1,25 +1,26 @@
 package com.phonebookertask.rest;
 
+import com.phonebookertask.repository.PhoneModelRepository;
 import com.phonebookertask.rest.response.PhoneModelResponse;
-import com.phonebookertask.service.PhoneBookService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/api/phones")
 public class PhoneRestController {
-    private final PhoneBookService phoneBookService;
+    private final PhoneModelRepository phoneModelRepository;
 
 
-    public PhoneRestController(PhoneBookService phoneBookService) {
-        this.phoneBookService = phoneBookService;
+    public PhoneRestController(PhoneModelRepository phoneModelRepository) {
+        this.phoneModelRepository = phoneModelRepository;
     }
 
     @GetMapping()
     public List<PhoneModelResponse> getPhones() {
-        return phoneBookService.getAvailablePhones().stream().map(PhoneModelResponse::new).toList();
+        return StreamSupport.stream(phoneModelRepository.findAll().spliterator(), false).map(PhoneModelResponse::new).toList();
     }
 }

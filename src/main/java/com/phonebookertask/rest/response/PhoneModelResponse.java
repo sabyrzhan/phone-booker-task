@@ -1,6 +1,6 @@
 package com.phonebookertask.rest.response;
 
-import com.phonebookertask.service.dto.PhoneDTO;
+import com.phonebookertask.model.PhoneModel;
 
 import java.util.List;
 
@@ -11,12 +11,12 @@ public class PhoneModelResponse {
     private int totalCount;
     private List<BookResponse> holders;
 
-    public PhoneModelResponse(PhoneDTO phoneDTO) {
-        this.id = phoneDTO.model().getId();
-        this.name = phoneDTO.model().getFullName();
-        this.available = phoneDTO.model().getCount() - phoneDTO.books().size() > 0;
-        this.totalCount = phoneDTO.model().getCount();
-        this.holders = phoneDTO.books().stream().map(BookResponse::new).toList();
+    public PhoneModelResponse(PhoneModel phoneModel) {
+        this.id = phoneModel.getId();
+        this.name = phoneModel.getFullName();
+        this.available = phoneModel.isAvailable();
+        this.totalCount = phoneModel.getCount();
+        this.holders = phoneModel.getBooks().stream().map(BookResponse::new).toList();
     }
 
     public int getId() {

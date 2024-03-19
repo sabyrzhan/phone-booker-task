@@ -2,6 +2,8 @@ package com.phonebookertask.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "phone_models")
 public class PhoneModel {
@@ -18,6 +20,9 @@ public class PhoneModel {
 
     @Column
     private int count;
+
+    @OneToMany(mappedBy = "phoneModel")
+    private List<Book> books;
 
     public Integer getId() {
         return id;
@@ -49,6 +54,18 @@ public class PhoneModel {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
+    public boolean isAvailable() {
+        return getCount() - books.size() > 0;
     }
 
     public String getFullName() {
